@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+
+import Redirect from "./component/Redirect/Redirect";
+import DSTT from "./component/DSTT/DSTT";
+import Login from "./component/Login/Login";
+import Create from "./component/Create/Create";
+import NhapDiem from "./component/NhapDiem/NhapDiem";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/dstt/create" element={<Create />} />
+        <Route path="/dstt/diem" element={<NhapDiem />} />
+        <Route path="/dstt/:chuong/:lesson" element={<DSTT />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<Redirect />} />
+      </Routes>
     </div>
   );
 }
