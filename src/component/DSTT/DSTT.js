@@ -15,6 +15,7 @@ const DSTT = () => {
   const [btap, setBTap] = useState([]);
   const [chuong, setChuong] = useState("");
   const [lesson, setLesson] = useState("");
+  const [error, setError] = useState("");
 
   const [checked, setChecked] = useState([]);
 
@@ -46,6 +47,24 @@ const DSTT = () => {
       lesson: lesson,
       listQuestion: checked,
     });
+    console.log(res);
+    if (res === -1) {
+      setTimeout(() => {
+        setError("");
+      }, 2000);
+      return setError("Chưa đến hoặc đã hết thời gian đăng ký");
+    }
+    if (res) {
+      setTimeout(() => {
+        setError("");
+      }, 2000);
+      return setError("Đăng ký thành công");
+    } else {
+      setTimeout(() => {
+        setError("");
+      }, 2000);
+      return setError("Đã có lỗi. Hãy thử lại");
+    }
   };
 
   const handlePushQuestion = (element) => {
@@ -74,6 +93,7 @@ const DSTT = () => {
               return (
                 <div>
                   <input
+                    className="dki-bai-lam"
                     type="checkbox"
                     checked={checked.indexOf(element) === -1 ? "" : "checked"}
                     onChange={(e) => {
@@ -91,11 +111,19 @@ const DSTT = () => {
           </div>
 
           <button onClick={submitDki}>Đăng ký làm bài</button>
+          <div
+            style={{ marginTop: "0px", fontWeight: "600", fontSize: "14px" }}
+            className="show-error"
+          >
+            {error}
+          </div>
         </div>
 
         <UserInforr />
       </div>
-      {UserInfor.role === "00" && <Manage chuong={chuong} lesson={lesson} />}
+      {UserInfor.role === "00" && (
+        <Manage chuong={params.chuong} lesson={params.lesson} />
+      )}
     </>
   );
 };
