@@ -1,6 +1,11 @@
 import { useState, useContext, useEffect } from "react";
+import { incDiem } from "../../api/diemApi";
 
-import { changeOpen, getBaiTapManage } from "../../api/examApi";
+import {
+  changeOpen,
+  getBaiTapManage,
+  reLoadDataManage,
+} from "../../api/examApi";
 import { UserContext } from "../../index";
 import "./Manage.css";
 
@@ -8,6 +13,9 @@ const Manage = (props) => {
   const UserInfor = useContext(UserContext);
 
   const [isOpenSignIn, setIsOpenSignIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [dataSignIn, setDataSignIn] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,12 +24,11 @@ const Manage = (props) => {
         UserInfor.accessToken
       );
       if (res) {
-        console.log(res);
         setIsOpenSignIn(res.open);
       }
     };
     fetchData();
-  }, []);
+  }, [UserInfor.accessToken, props.lesson, props.chuong]);
 
   const handleChangeIsOpen = async () => {
     let res = await changeOpen(
@@ -37,7 +44,42 @@ const Manage = (props) => {
     }
   };
 
-  const reLoadData = async () => {};
+  const handleIncStarForBaiTap = async (mssv, cauhoi) => {
+    setIsLoading(true);
+
+    let res = await incDiem(
+      { mssv: mssv, cauhoi: cauhoi },
+      UserInfor.accessToken
+    );
+    if (res) {
+      reLoadData();
+    } else {
+      setIsLoading(false);
+      setTimeout(() => {
+        setError("");
+      }, 2000);
+      return setError("Đã có lỗi, hãy tải lại");
+    }
+  };
+
+  const reLoadData = async () => {
+    setIsLoading(true);
+    let res = await reLoadDataManage(
+      { chuong: props.chuong, lesson: props.lesson },
+      UserInfor.accessToken
+    );
+    if (res) {
+      setIsLoading(false);
+      setDataSignIn(res);
+      return;
+    } else {
+      setIsLoading(false);
+      setTimeout(() => {
+        setError("");
+      }, 2000);
+      return setError("Đã có lỗi, hãy tải lại");
+    }
+  };
 
   return (
     <div className="manage-wrapper">
@@ -52,6 +94,13 @@ const Manage = (props) => {
         <button onClick={reLoadData} className="btn-green">
           Tải lại
         </button>
+        <div
+          style={{ marginTop: "0px", fontWeight: "600", fontSize: "14px" }}
+          className="show-error"
+        >
+          {isLoading ? "Đang tải..." : null}
+          {error}
+        </div>
       </div>
       <div>
         <table className="table-dki">
@@ -61,28 +110,34 @@ const Manage = (props) => {
             <th>Tên</th>
             <th>Số sao đã có</th>
             <th>Thời gian đăng ký</th>
+            <th></th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>48.01.101.074</td>
-            <td>Đặng Giáp Thân</td>
-            <td>3</td>
-            <td>12:12 22/11</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>48.01.101.074</td>
-            <td>Nguyễn Đăng Hoàng Long</td>
-            <td>3</td>
-            <td>12:12 22/11</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>48.01.101.074</td>
-            <td>Đặng Giáp Thân</td>
-            <td>3</td>
-            <td>12:12 22/11</td>
-          </tr>
+          {Object.keys(dataSignIn).map((cauhoi) => {
+            return dataSignIn[cauhoi].map((element) => {
+              let date = new Date(element.time);
+              return (
+                <tr>
+                  <td style={{ fontWeight: "600" }}>{cauhoi}</td>
+                  <td>{element.mssv}</td>
+                  <td>{element.name}</td>
+                  <td>{element.stars}</td>
+                  <td>{`${
+                    date.toTimeString().split(" ")[0]
+                  } ${date.toLocaleDateString()}`}</td>
+                  <td>
+                    <button
+                      onClick={() =>
+                        handleIncStarForBaiTap(element.mssv, cauhoi)
+                      }
+                      className="btn-inc-star"
+                    >
+                      Cộng
+                    </button>
+                  </td>
+                </tr>
+              );
+            });
+          })}
         </table>
       </div>
     </div>

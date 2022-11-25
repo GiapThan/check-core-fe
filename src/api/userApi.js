@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 
-const login = async (payload = {}, type = "login") => {
+const UserLogin = async (payload = {}, type = "login") => {
   console.log(payload, type);
   try {
     const res = await axiosClient.post(
@@ -17,4 +17,18 @@ const login = async (payload = {}, type = "login") => {
   }
 };
 
-export default { login };
+const getUserInfor = async (payload = {}, accessToken) => {
+  try {
+    let res = await axiosClient.get(`user/${payload.mssv}`, {
+      headers: {
+        author: accessToken,
+      },
+    });
+    if (res && res.errCode === 0) return res.data;
+    return false;
+  } catch (error) {
+    return false;
+  }
+};
+
+export { UserLogin, getUserInfor };

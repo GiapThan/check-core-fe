@@ -65,7 +65,6 @@ const changeOpen = async (payload = {}, accessToken) => {
 };
 
 const getBaiTapManage = async (payload = {}, accessToken) => {
-  console.log(payload);
   try {
     let res = await axiosClient.get(
       `exam/manage/${payload.chuong}/${payload.lesson}`,
@@ -81,12 +80,17 @@ const getBaiTapManage = async (payload = {}, accessToken) => {
   }
 };
 
-const reLoadData = async (payload, accessToken) => {
-  let res = await axiosClient.get(
-    `exam/reload/${payload.chuong}/${payload.lesson}`,
-    { headers: { author: accessToken } }
-  );
-  console.log(res);
+const reLoadDataManage = async (payload, accessToken) => {
+  try {
+    let res = await axiosClient.get(
+      `exam/reload/${payload.chuong}/${payload.lesson}`,
+      { headers: { author: accessToken } }
+    );
+    if (res.errCode === 0) return res.data;
+    return false;
+  } catch (error) {
+    return false;
+  }
 };
 export {
   getBaiTap,
@@ -94,5 +98,5 @@ export {
   signInBaiTap,
   changeOpen,
   getBaiTapManage,
-  reLoadData,
+  reLoadDataManage,
 };

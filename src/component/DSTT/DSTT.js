@@ -91,9 +91,8 @@ const DSTT = () => {
           <div className="question">
             {btap.map((element) => {
               return (
-                <div>
+                <div key={element}>
                   <input
-                    className="dki-bai-lam"
                     type="checkbox"
                     checked={checked.indexOf(element) === -1 ? "" : "checked"}
                     onChange={(e) => {
@@ -104,7 +103,7 @@ const DSTT = () => {
                       }
                     }}
                   />
-                  <label key={element}>{element}</label>
+                  <label>{element}</label>
                 </div>
               );
             })}

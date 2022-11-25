@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import userApi from "../../api/userApi";
+import { UserLogin } from "../../api/userApi";
 import { UserContext } from "../../index";
 import "./Login.css";
 
@@ -15,15 +15,16 @@ function Login() {
   const [isShowFormInputName, setIsShowFormInputName] = useState(false);
 
   const handleSubmitName = async () => {
+    console.log(name.trim());
     if (!name) {
       return setError("Chưa nhập họ và tên");
     }
-    let res = await userApi.login({ name: name, mssv: mssv }, "name");
+    if (name.trim() === "") return setError("Họ và tên không được để trống");
+    let res = await UserLogin({ name: name, mssv: mssv }, "name");
     if (res) {
-      UserInfor.name = name;
+      UserInfor.name = name.trim();
       UserInfor.accessToken = res.accessToken;
       UserInfor.role = res.role;
-      console.log("...............");
       navigation(-1);
     } else {
       setError("Máy chủ đang bận. Hãy thử lại");
@@ -35,10 +36,13 @@ function Login() {
     if (!mssv) {
       return setError("Chưa nhập MSSV");
     }
+    if (mssv.includes(" ")) {
+      return setError("MSSV không chứa khoảng trắng");
+    }
     if (!password) {
       return setError("Mật khẩu không được bỏ trống");
     }
-    let res = await userApi.login({ mssv: mssv, password: password });
+    let res = await UserLogin({ mssv: mssv.trim(), password: password });
     if (res) {
       UserInfor.name = res.name;
       UserInfor.mssv = res.mssv;
