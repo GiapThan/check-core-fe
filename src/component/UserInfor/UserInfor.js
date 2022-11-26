@@ -30,7 +30,7 @@ const UserInforr = () => {
             return (
               <p key={key}>
                 {key === "pre" ? "Trước đây" : `Ngày ${key}`}:{" "}
-                <span>{stars[key]}</span>
+                <span>{stars[key] === "" ? 0 : stars[key]}</span>
               </p>
             );
           })}

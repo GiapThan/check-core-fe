@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserLogin } from "../../api/userApi";
 import { UserContext } from "../../index";
@@ -50,7 +50,7 @@ function Login() {
       UserInfor.accessToken = res.accessToken;
       UserInfor.role = res.role;
 
-      if (res.name === "") {
+      if (res.name === "" || !res.name) {
         return setIsShowFormInputName(true);
       } else {
         navigation(-1);
