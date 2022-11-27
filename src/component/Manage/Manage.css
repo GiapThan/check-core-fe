@@ -12,13 +12,16 @@
   border-radius: 4px;
 }
 .manage-wrapper .option button:active {
-  opacity: 0.4;
+  opacity: 0.5;
 }
 .manage-wrapper .option .btn-green {
   background-color: rgb(59, 207, 59);
 }
 .manage-wrapper .option .btn-red {
   background-color: rgb(241, 64, 64);
+}
+.manage-wrapper .option .btn-green.loading {
+  opacity: 0.5;
 }
 .table-dki {
   border-collapse: collapse;

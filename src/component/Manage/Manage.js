@@ -48,7 +48,12 @@ const Manage = (props) => {
     setIsLoading(true);
 
     let res = await incDiem(
-      { mssv: mssv, cauhoi: cauhoi },
+      {
+        mssv: mssv,
+        cauhoi: cauhoi,
+        chuong: props.chuong,
+        lesson: props.lesson,
+      },
       UserInfor.accessToken
     );
     if (res) {
@@ -63,6 +68,7 @@ const Manage = (props) => {
   };
 
   const reLoadData = async () => {
+    setDataSignIn([]);
     setIsLoading(true);
     let res = await reLoadDataManage(
       { chuong: props.chuong, lesson: props.lesson },
@@ -91,7 +97,11 @@ const Manage = (props) => {
         >
           {!isOpenSignIn ? "Mở" : "Đóng"} đăng ký
         </button>
-        <button onClick={reLoadData} className="btn-green">
+        <button
+          onClick={reLoadData}
+          className={isLoading ? "btn-green loading" : `btn-green`}
+          disabled={isLoading}
+        >
           Tải lại
         </button>
         <div
