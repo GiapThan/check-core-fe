@@ -21,7 +21,7 @@ const Create = () => {
       alert('Bạn không có quyền truy cập trang này');
       navigation('/login');
     }
-  }, []);
+  }, [UserInfor.role]);
 
   const pushQuestion = () => {
     if (listQuestion.includes(question) || question.trim() === '') return;
