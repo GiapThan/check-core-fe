@@ -1,25 +1,24 @@
-import { useState } from "react";
-import { insertDiem } from "../../api/diemApi";
+import { useState } from 'react';
+import { insertDiem } from '../../api/diemApi';
 
 const NhapDiem = () => {
-  const [mssv, setMssv] = useState("");
+  const [mssv, setMssv] = useState('');
   const [diem, setDiem] = useState(0);
-  console.log(diem);
   const handleSubmit = async () => {
-    if (mssv === "") {
-      alert("MSSV phải nhập");
+    if (mssv === '') {
+      alert('MSSV phải nhập');
       return;
     }
     if (+diem < 0) {
-      alert("Điểm phải không âm");
+      alert('Điểm phải không âm');
       return;
     }
     let res = await insertDiem({ mssv, diem });
     if (res) {
       setDiem(0);
-      setMssv("");
+      setMssv('');
     } else {
-      alert("Đã có lỗi, Hãy nhập lại bản ghi này");
+      alert('Đã có lỗi, Hãy nhập lại bản ghi này');
       setDiem(0);
     }
   };

@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import "./DSTT.css";
-import { UserContext } from "../../index";
-import { getBaiTap, signInBaiTap } from "../../api/examApi";
-import UserInforr from "../UserInfor/UserInfor";
-import Manage from "../Manage/Manage";
+import './DSTT.css';
+import { UserContext } from '../../index';
+import { getBaiTap, signInBaiTap } from '../../api/examApi';
+import UserInforr from '../UserInfor/UserInfor';
+import Manage from '../Manage/Manage';
 
 const DSTT = () => {
   const UserInfor = useContext(UserContext);
@@ -13,15 +13,15 @@ const DSTT = () => {
   const params = useParams();
 
   const [btap, setBTap] = useState([]);
-  const [chuong, setChuong] = useState("");
-  const [lesson, setLesson] = useState("");
-  const [error, setError] = useState("");
+  const [chuong, setChuong] = useState('');
+  const [lesson, setLesson] = useState('');
+  const [error, setError] = useState('');
 
   const [checked, setChecked] = useState([]);
 
   useEffect(() => {
-    if (UserInfor.mssv === "" && UserInfor.name === "") {
-      return navigation("/login");
+    if (UserInfor.mssv === '' && UserInfor.name === '') {
+      return navigation('/login');
     }
 
     const getData = async () => {
@@ -32,8 +32,8 @@ const DSTT = () => {
         setLesson(res.lesson);
         setChecked(res.listHasSignIn);
       } else {
-        alert("Có lỗi xảy ra. Vui lòng thử lại");
-        navigation("/login");
+        alert('Có lỗi xảy ra. Vui lòng thử lại');
+        navigation('/login');
       }
     };
     getData();
@@ -47,23 +47,22 @@ const DSTT = () => {
       lesson: lesson,
       listQuestion: checked,
     });
-    console.log(res);
     if (res === -1) {
       setTimeout(() => {
-        setError("");
+        setError('');
       }, 2000);
-      return setError("Chưa đến hoặc đã hết thời gian đăng ký");
+      return setError('Chưa đến hoặc đã hết thời gian đăng ký');
     }
     if (res) {
       setTimeout(() => {
-        setError("");
+        setError('');
       }, 2000);
-      return setError("Đăng ký thành công");
+      return setError('Đăng ký thành công');
     } else {
       setTimeout(() => {
-        setError("");
+        setError('');
       }, 2000);
-      return setError("Đã có lỗi. Hãy thử lại");
+      return setError('Đã có lỗi. Hãy thử lại');
     }
   };
 
@@ -94,7 +93,7 @@ const DSTT = () => {
                 <div key={element}>
                   <input
                     type="checkbox"
-                    checked={checked.indexOf(element) === -1 ? "" : "checked"}
+                    checked={checked.indexOf(element) === -1 ? '' : 'checked'}
                     onChange={(e) => {
                       if (e.target.checked) {
                         handlePushQuestion(element);
@@ -111,7 +110,7 @@ const DSTT = () => {
 
           <button onClick={submitDki}>Đăng ký làm bài</button>
           <div
-            style={{ marginTop: "0px", fontWeight: "600", fontSize: "14px" }}
+            style={{ marginTop: '0px', fontWeight: '600', fontSize: '14px' }}
             className="show-error"
           >
             {error}
@@ -120,7 +119,7 @@ const DSTT = () => {
 
         <UserInforr />
       </div>
-      {UserInfor.role === "00" && (
+      {UserInfor.role === '00' && (
         <Manage chuong={params.chuong} lesson={params.lesson} />
       )}
     </>

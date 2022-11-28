@@ -1,12 +1,11 @@
-import axiosClient from "./axiosClient";
+import axiosClient from './axiosClient';
 
 const getBaiTap = async (payload = {}, accessToken) => {
   try {
     let res = await axiosClient.get(
       `exam/${payload.chuong}/${payload.lesson}`,
-      { headers: { author: accessToken } }
+      { headers: { author: accessToken } },
     );
-    console.log(res);
     if (res && res.errCode === 0) {
       return res.data;
     } else {
@@ -19,7 +18,7 @@ const getBaiTap = async (payload = {}, accessToken) => {
 
 const createBaiTap = async (payload = {}, accessToken) => {
   try {
-    let res = await axiosClient.post("exam/create", payload, {
+    let res = await axiosClient.post('exam/create', payload, {
       headers: { author: accessToken },
     });
     if (res && res.errCode === 0) {
@@ -35,8 +34,7 @@ const createBaiTap = async (payload = {}, accessToken) => {
 
 const signInBaiTap = async (payload = {}) => {
   try {
-    let data = await axiosClient.post("/exam/signin", payload);
-    console.log(data);
+    let data = await axiosClient.post('/exam/signin', payload);
     if (data.errCode === -1) return -1;
     if (data.errCode === 0) {
       return true;
@@ -51,7 +49,7 @@ const signInBaiTap = async (payload = {}) => {
 
 const changeOpen = async (payload = {}, accessToken) => {
   try {
-    let res = await axiosClient.post("/exam/change", payload, {
+    let res = await axiosClient.post('/exam/change', payload, {
       headers: { author: accessToken },
     });
     if (res.errCode === 0) {
@@ -68,7 +66,7 @@ const getBaiTapManage = async (payload = {}, accessToken) => {
   try {
     let res = await axiosClient.get(
       `exam/manage/${payload.chuong}/${payload.lesson}`,
-      { headers: { author: accessToken } }
+      { headers: { author: accessToken } },
     );
     if (res && res.errCode === 0) {
       return res.data;
@@ -84,7 +82,7 @@ const reLoadDataManage = async (payload, accessToken) => {
   try {
     let res = await axiosClient.get(
       `exam/reload/${payload.chuong}/${payload.lesson}`,
-      { headers: { author: accessToken } }
+      { headers: { author: accessToken } },
     );
     if (res.errCode === 0) return res.data;
     return false;

@@ -1,27 +1,27 @@
-import { useState, useContext, useEffect } from "react";
-import { incDiem } from "../../api/diemApi";
+import { useState, useContext, useEffect } from 'react';
+import { incDiem } from '../../api/diemApi';
 
 import {
   changeOpen,
   getBaiTapManage,
   reLoadDataManage,
-} from "../../api/examApi";
-import { UserContext } from "../../index";
-import "./Manage.css";
+} from '../../api/examApi';
+import { UserContext } from '../../index';
+import './Manage.css';
 
 const Manage = (props) => {
   const UserInfor = useContext(UserContext);
 
   const [isOpenSignIn, setIsOpenSignIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [dataSignIn, setDataSignIn] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       let res = await getBaiTapManage(
         { lesson: props.lesson, chuong: props.chuong },
-        UserInfor.accessToken
+        UserInfor.accessToken,
       );
       if (res) {
         setIsOpenSignIn(res.open);
@@ -37,7 +37,7 @@ const Manage = (props) => {
         chuong: props.chuong,
         open: !isOpenSignIn,
       },
-      UserInfor.accessToken
+      UserInfor.accessToken,
     );
     if (res) {
       setIsOpenSignIn(!isOpenSignIn);
@@ -54,16 +54,16 @@ const Manage = (props) => {
         chuong: props.chuong,
         lesson: props.lesson,
       },
-      UserInfor.accessToken
+      UserInfor.accessToken,
     );
     if (res) {
       reLoadData();
     } else {
       setIsLoading(false);
       setTimeout(() => {
-        setError("");
+        setError('');
       }, 2000);
-      return setError("Đã có lỗi, hãy tải lại");
+      return setError('Đã có lỗi, hãy tải lại');
     }
   };
 
@@ -72,7 +72,7 @@ const Manage = (props) => {
     setIsLoading(true);
     let res = await reLoadDataManage(
       { chuong: props.chuong, lesson: props.lesson },
-      UserInfor.accessToken
+      UserInfor.accessToken,
     );
     if (res) {
       setIsLoading(false);
@@ -81,9 +81,9 @@ const Manage = (props) => {
     } else {
       setIsLoading(false);
       setTimeout(() => {
-        setError("");
+        setError('');
       }, 2000);
-      return setError("Đã có lỗi, hãy tải lại");
+      return setError('Đã có lỗi, hãy tải lại');
     }
   };
 
@@ -93,26 +93,26 @@ const Manage = (props) => {
       <div className="option">
         <button
           onClick={handleChangeIsOpen}
-          className={!isOpenSignIn ? "btn-green" : "btn-red"}
+          className={!isOpenSignIn ? 'btn-green' : 'btn-red'}
         >
-          {!isOpenSignIn ? "Mở" : "Đóng"} đăng ký
+          {!isOpenSignIn ? 'Mở' : 'Đóng'} đăng ký
         </button>
         <button
           onClick={reLoadData}
-          className={isLoading ? "btn-green loading" : `btn-green`}
+          className={isLoading ? 'btn-green loading' : `btn-green`}
           disabled={isLoading}
         >
           Tải lại
         </button>
         <div
-          style={{ marginTop: "0px", fontWeight: "600", fontSize: "14px" }}
+          style={{ marginTop: '0px', fontWeight: '600', fontSize: '14px' }}
           className="show-error"
         >
-          {isLoading ? "Đang tải..." : null}
+          {isLoading ? 'Đang tải...' : null}
           {error}
         </div>
       </div>
-      <div>
+      <div className="wrapper-table-dki">
         <table className="table-dki">
           <tr>
             <th>Câu</th>
@@ -127,12 +127,12 @@ const Manage = (props) => {
               let date = new Date(element.time);
               return (
                 <tr>
-                  <td style={{ fontWeight: "600" }}>{cauhoi}</td>
+                  <td style={{ fontWeight: '600' }}>{cauhoi}</td>
                   <td>{element.mssv}</td>
                   <td>{element.name}</td>
                   <td>{element.stars}</td>
                   <td>{`${
-                    date.toTimeString().split(" ")[0]
+                    date.toTimeString().split(' ')[0]
                   } ${date.toLocaleDateString()}`}</td>
                   <td>
                     <button

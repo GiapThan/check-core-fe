@@ -1,6 +1,11 @@
 .manage-wrapper {
   margin: 8px auto;
   padding: 4px;
+  width: 800px;
+}
+.manage-wrapper .wrapper-table-dki {
+  height: 100vh;
+  overflow: scroll;
 }
 .manage-wrapper .option button {
   margin: 8px;
@@ -47,4 +52,11 @@
 }
 .btn-inc-star:active {
   opacity: 0.5;
+}
+@media screen and (max-width: 800px) {
+  .manage-wrapper {
+    width: 100vw;
+  }
+}
+@media screen and (max-width: 500px) {
 }

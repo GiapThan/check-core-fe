@@ -58,37 +58,14 @@
 .content button:active {
   opacity: 1;
 }
-.user-infor {
-  border: 2px solid lightgray;
-  border-radius: 8px;
-  height: max-content;
-  width: 250px;
-  padding: 4px;
-}
-.user-infor .create-exam {
-  background-color: lightblue;
-  outline: none;
-  border: 1px solid lightblue;
-  border-radius: 4px;
-  padding: 4px;
-  cursor: pointer;
-}
-.user-infor .stars {
-  text-align: left;
-  padding-left: 20px;
-  width: 100%;
-}
-.user-infor .stars div p {
-  color: blue;
-}
-.user-infor .stars div p span {
-  margin-left: 8px;
-  color: rgb(208, 0, 255);
-}
+
 @media screen and (max-width: 800px) {
   .wrapper {
     width: unset;
     margin: 0;
+  }
+  .content {
+    width: 66%;
   }
   .content .q-title {
     font-size: 20px;
@@ -99,18 +76,6 @@
   .content .question div input {
     width: 18px;
     height: 18px;
-  }
-  .user-infor {
-    width: initial;
-    padding: 2px;
-    padding: 8px;
-  }
-  .user-infor .stars {
-    padding-left: 8px;
-    font-size: 14px;
-  }
-  .user-infor .stars div p span {
-    margin-left: 1px;
   }
 }
 @media screen and (max-width: 500px) {
@@ -123,11 +88,5 @@
   }
   .content .q-title {
     font-size: 18px;
-  }
-  .user-infor {
-    border: none;
-    border-top: 2px solid lightgray;
-    width: 100%;
-    padding: 4px;
   }
 }
