@@ -3,11 +3,11 @@
   padding: 4px;
   width: 800px;
 }
-.manage-wrapper .wrapper-table-dki {
+.wrapper-table-dki {
   height: 100vh;
   overflow: scroll;
 }
-.manage-wrapper .option button {
+.option button {
   margin: 8px;
   padding: 8px;
   font-weight: 600;
@@ -16,16 +16,16 @@
   border: none;
   border-radius: 4px;
 }
-.manage-wrapper .option button:active {
+.option button:active {
   opacity: 0.5;
 }
-.manage-wrapper .option .btn-green {
+.btn-green {
   background-color: rgb(59, 207, 59);
 }
-.manage-wrapper .option .btn-red {
+.btn-red {
   background-color: rgb(241, 64, 64);
 }
-.manage-wrapper .option .btn-green.loading {
+.btn-green.loading {
   opacity: 0.5;
 }
 .table-dki {
@@ -48,7 +48,7 @@
   border-radius: 4px;
   background-color: greenyellow;
   font-weight: 600;
-  padding: 4px;
+  padding: 8px;
 }
 .btn-inc-star:active {
   opacity: 0.5;

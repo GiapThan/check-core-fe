@@ -1,8 +1,12 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames/bind';
+
 import { UserLogin } from '../../api/userApi';
 import { UserContext } from '../../index';
-import './Login.css';
+import styles from './Login.module.scss';
+
+const cx = classNames.bind(styles);
 
 function Login() {
   const UserInfor = useContext(UserContext);
@@ -13,11 +17,13 @@ function Login() {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [isShowFormInputName, setIsShowFormInputName] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmitName = async () => {
     if (!name) {
       return setError('Chưa nhập họ và tên');
     }
+    setIsLoading(true);
     if (name.trim() === '') return setError('Họ và tên không được để trống');
     let res = await UserLogin({ name: name, mssv: mssv }, 'name');
     if (res) {
@@ -26,6 +32,7 @@ function Login() {
       UserInfor.role = res.role;
       navigation(-1);
     } else {
+      setIsLoading(false);
       setError('Máy chủ đang bận. Hãy thử lại');
     }
   };
@@ -40,6 +47,7 @@ function Login() {
     if (!password) {
       return setError('Mật khẩu không được bỏ trống');
     }
+    setIsLoading(true);
     let res = await UserLogin({ mssv: mssv.trim(), password: password });
     if (res) {
       UserInfor.name = res.name;
@@ -47,24 +55,25 @@ function Login() {
       UserInfor.stars = res.stars;
       UserInfor.accessToken = res.accessToken;
       UserInfor.role = res.role;
-
       if (res.name === '' || !res.name) {
+        setIsLoading(false);
         return setIsShowFormInputName(true);
       } else {
         navigation(-1);
       }
     } else {
+      setIsLoading(false);
       setError('Đăng nhập thất bại. Hãy thử lại');
     }
   };
 
   return (
     <>
-      <div className={'form-input'}>
-        <div className={'title'}>Đăng Nhập</div>
+      <div className={cx('form-input')}>
+        <div className={cx('title')}>Đăng Nhập</div>
         {!isShowFormInputName && (
           <>
-            <div className={'form-control'}>
+            <div className={cx('form-control')}>
               <input
                 placeholder="MSSV"
                 value={mssv}
@@ -73,7 +82,7 @@ function Login() {
               />
             </div>
 
-            <div className={'form-control'}>
+            <div className={cx('form-control')}>
               <input
                 placeholder="Nếu lần đầu đăng nhập, hãy nhập mật khẩu mới"
                 type={'password'}
@@ -86,15 +95,20 @@ function Login() {
               />
             </div>
 
-            <div className={'show-error'}>{error}</div>
-            <button className={'submit-btn'} onClick={handleSubmit}>
+            <div className="show-error">{error}</div>
+            <button
+              className={
+                isLoading ? cx('submit-btn', 'loading') : cx('submit-btn')
+              }
+              onClick={handleSubmit}
+            >
               Đăng Nhập
             </button>
           </>
         )}
         {isShowFormInputName && (
           <>
-            <div className="form-control">
+            <div className={cx('form-control')}>
               <input
                 placeholder="Nhập tên của bạn"
                 value={name}
@@ -106,8 +120,13 @@ function Login() {
                 style={{ fontWeight: 600 }}
               />
             </div>
-            <div className={'show-error'}>{error}</div>
-            <button className={'submit-btn'} onClick={handleSubmitName}>
+            <div className={cx('show-error')}>{error}</div>
+            <button
+              className={
+                isLoading ? cx('submit-btn', 'loading') : cx('submit-btn')
+              }
+              onClick={handleSubmitName}
+            >
               Đăng Nhập
             </button>
           </>

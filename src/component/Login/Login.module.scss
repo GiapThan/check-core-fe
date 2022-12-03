@@ -6,7 +6,6 @@
   margin: auto;
   padding: 8px;
 }
-
 .title {
   color: #161823;
   font-family: sans-serif;
@@ -16,7 +15,6 @@
   margin: 12px 0;
   height: 15%;
 }
-
 .form-control {
   position: relative;
   display: flex;
@@ -28,7 +26,6 @@
   width: 100%;
   height: 40px;
 }
-
 .form-control.error {
   border: 1px solid #e5284d;
 }
@@ -62,15 +59,9 @@
 .submit-btn:active {
   opacity: 0.8;
 }
-.show-error {
-  font-size: 12px;
-  height: 18px;
-  margin-top: -18px;
-  padding: 0 12px;
-  width: 100%;
-  color: #ff3636bd;
+.submit-btn.loading {
+  opacity: 0.5;
 }
-
 @media screen and (max-width: 400px) {
   .form-input {
     width: 250px;

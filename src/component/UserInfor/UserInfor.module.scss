@@ -5,7 +5,7 @@
   width: 250px;
   padding: 4px;
 }
-.user-infor .create-exam {
+.create-exam {
   background-color: lightblue;
   outline: none;
   border: 1px solid lightblue;
@@ -15,39 +15,44 @@
   font-weight: 600;
   margin: 4px 8px;
 }
-.user-infor .stars {
+.stars {
   text-align: left;
   padding-left: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
-.user-infor .stars div p {
+.stars button svg {
+  font-size: 20px;
+}
+.stars div p {
   color: blue;
 }
-.user-infor .stars div p span {
+.stars div p span {
   margin-left: 8px;
   color: rgb(208, 0, 255);
 }
-.stars .reload-stars {
+.reload-stars {
   padding: 8px;
   cursor: pointer;
-  font-weight: 600;
   border: none;
   border-radius: 4px;
   background-color: antiquewhite;
   width: fit-content;
+}
+.loading {
+  animation: spinner linear infinite 0.3s;
 }
 @media screen and (max-width: 800px) {
   .user-infor {
     width: 30%;
     padding: 2px;
   }
-  .user-infor .stars {
+  .stars {
     padding-left: 8px;
     font-size: 14px;
   }
-  .user-infor .stars div p span {
+  .stars div p span {
     margin-left: 1px;
   }
 }
@@ -64,5 +69,13 @@
   }
   .stars div p {
     margin: 8px;
+  }
+}
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

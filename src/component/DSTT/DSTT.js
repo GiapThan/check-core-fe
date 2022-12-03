@@ -1,11 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import classNames from 'classnames/bind';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
-import './DSTT.css';
 import { UserContext } from '../../index';
 import { getBaiTap, signInBaiTap } from '../../api/examApi';
 import UserInforr from '../UserInfor/UserInfor';
 import Manage from '../Manage/Manage';
+import styles from './DSTT.module.scss';
+
+const cx = classNames.bind(styles);
 
 const DSTT = () => {
   const UserInfor = useContext(UserContext);
@@ -37,7 +42,13 @@ const DSTT = () => {
       }
     };
     getData();
-  }, []);
+  }, [
+    UserInfor.mssv,
+    UserInfor.name,
+    UserInfor.accessToken,
+    params,
+    navigation,
+  ]);
 
   const submitDki = async () => {
     if (checked.length === 0) return;
@@ -81,13 +92,13 @@ const DSTT = () => {
 
   return (
     <>
-      <div className="wrapper">
-        <div className="content">
-          <div className="q-title">
+      <div className={cx('wrapper')}>
+        <div className={cx('content')}>
+          <div className={cx('q-title')}>
             Câu hỏi bài tập Chương {chuong} Bài {lesson}
           </div>
 
-          <div className="question">
+          <div className={cx('question')}>
             {btap.map((element) => {
               return (
                 <div key={element}>
@@ -108,7 +119,9 @@ const DSTT = () => {
             })}
           </div>
 
-          <button onClick={submitDki}>Đăng ký làm bài</button>
+          <button onClick={submitDki}>
+            <FontAwesomeIcon icon={faRightToBracket} /> Đăng ký làm bài
+          </button>
           <div
             style={{ marginTop: '0px', fontWeight: '600', fontSize: '14px' }}
             className="show-error"

@@ -1,13 +1,18 @@
 import { useState, useContext, useEffect } from 'react';
-import { incDiem } from '../../api/diemApi';
+import classNames from 'classnames/bind';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import {
   changeOpen,
   getBaiTapManage,
   reLoadDataManage,
 } from '../../api/examApi';
+import { incDiem } from '../../api/diemApi';
 import { UserContext } from '../../index';
-import './Manage.css';
+import styles from './Manage.module.scss';
+
+const cx = classNames.bind(styles);
 
 const Manage = (props) => {
   const UserInfor = useContext(UserContext);
@@ -88,18 +93,18 @@ const Manage = (props) => {
   };
 
   return (
-    <div className="manage-wrapper">
+    <div className={cx('manage-wrapper')}>
       Quản lý bài {props.lesson} chương {props.chuong}
-      <div className="option">
+      <div className={cx('option')}>
         <button
           onClick={handleChangeIsOpen}
-          className={!isOpenSignIn ? 'btn-green' : 'btn-red'}
+          className={!isOpenSignIn ? cx('btn-green') : cx('btn-red')}
         >
           {!isOpenSignIn ? 'Mở' : 'Đóng'} đăng ký
         </button>
         <button
           onClick={reLoadData}
-          className={isLoading ? 'btn-green loading' : `btn-green`}
+          className={isLoading ? cx('btn-green', 'loading') : cx('btn-green')}
           disabled={isLoading}
         >
           Tải lại
@@ -112,8 +117,8 @@ const Manage = (props) => {
           {error}
         </div>
       </div>
-      <div className="wrapper-table-dki">
-        <table className="table-dki">
+      <div className={cx('wrapper-table-dki')}>
+        <table className={cx('table-dki')}>
           <tr>
             <th>Câu</th>
             <th>MSSV</th>
@@ -139,9 +144,9 @@ const Manage = (props) => {
                       onClick={() =>
                         handleIncStarForBaiTap(element.mssv, cauhoi)
                       }
-                      className="btn-inc-star"
+                      className={cx('btn-inc-star')}
                     >
-                      Cộng
+                      <FontAwesomeIcon icon={faPlus} />
                     </button>
                   </td>
                 </tr>

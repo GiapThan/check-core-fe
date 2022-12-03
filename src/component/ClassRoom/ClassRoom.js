@@ -1,11 +1,16 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames/bind';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 import { incDiem } from '../../api/diemApi';
 import { getAllUserInfor } from '../../api/userApi';
 import { UserContext } from '../../index';
 import UserInforr from '../UserInfor/UserInfor';
-import './ClassRoom.css';
+import styles from './ClassRoom.module.scss';
+
+const cx = classNames.bind(styles);
 
 const ClassRoom = () => {
   const UserInfor = useContext(UserContext);
@@ -65,13 +70,13 @@ const ClassRoom = () => {
   };
 
   return (
-    <div className="wrapper">
-      <div className="manage-wrapper-class">
+    <div className={cx('wrapper')}>
+      <div className={cx('manage-wrapper-class')}>
         <strong style={{ color: 'red', fontSize: 24 }}>Quản lý lớp</strong>
-        <div className="option">
+        <div className={cx('option')}>
           <button
             onClick={reLoadData}
-            className={isLoading ? 'reload-btn loading' : `reload-btn`}
+            className={cx('reload-btn')}
             disabled={isLoading}
           >
             Tải lại
@@ -84,8 +89,9 @@ const ClassRoom = () => {
             {error}
           </div>
         </div>
+
         <div>
-          <table className="table-dki">
+          <table className={cx('table-dki')}>
             <tr>
               <th>STT</th>
               <th>MSSV</th>
@@ -105,9 +111,12 @@ const ClassRoom = () => {
                   <td>
                     <button
                       onClick={() => handleIncStarForBaiTap(element.mssv)}
-                      className="btn-inc-star"
+                      className={cx('btn-inc-star')}
                     >
-                      Cộng
+                      <FontAwesomeIcon icon={faPlus} />
+                    </button>
+                    <button onClick={() => {}} className={cx('btn-dec-star')}>
+                      <FontAwesomeIcon icon={faMinus} />
                     </button>
                   </td>
                 </tr>

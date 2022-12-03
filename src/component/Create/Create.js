@@ -1,9 +1,13 @@
 import { useEffect, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames/bind';
+
 import { createBaiTap } from '../../api/examApi';
 import UserInforr from '../UserInfor/UserInfor';
 import { UserContext } from '../../index';
-import './Create.css';
+import styles from './Create.module.scss';
+
+const cx = classNames.bind(styles);
 
 const Create = () => {
   const UserInfor = useContext(UserContext);
@@ -21,7 +25,7 @@ const Create = () => {
       alert('Bạn không có quyền truy cập trang này');
       navigation('/login');
     }
-  }, [UserInfor.role]);
+  }, [UserInfor.role, navigation]);
 
   const pushQuestion = () => {
     if (listQuestion.includes(question) || question.trim() === '') return;
@@ -37,30 +41,30 @@ const Create = () => {
   };
 
   const submit = async () => {
-    if (!chuong) {
+    if (!chuong || chuong.trim() === '') {
       return setError('Chưa nhập Chương');
     }
-    if (!lesson) {
+    if (!lesson || lesson.trim() === '') {
       return setError('Chưa nhập Bài học');
     }
     if (listQuestion.length < 1) {
       return setError('Tối thiểu 1 câu bài tập.');
     }
     let res = await createBaiTap(
-      { chuong, lesson, listQuestion },
+      { chuong: chuong.trim(), lesson: lesson.trim(), listQuestion },
       UserInfor.accessToken,
     );
     if (res && res !== -2) {
-      navigation(`/dstt/${chuong}/${lesson}`);
+      navigation(`/dstt/${chuong.trim()}/${lesson.trim()}`);
     } else if (res === -2) {
-      setError(`Chương ${chuong} Bài ${lesson} đã tạo`);
+      setError(`Chương ${chuong.trim()} Bài ${lesson.trim()} đã tạo`);
     } else setError('Máy chủ đang bận. Thử lại');
   };
 
   return (
-    <div className="wrapper">
-      <div className="content">
-        <div className="q-title">
+    <div className={cx('wrapper')}>
+      <div className={cx('content')}>
+        <div className={cx('q-title')}>
           Câu hỏi bài tập Chương
           <input
             type={'text'}
@@ -77,13 +81,16 @@ const Create = () => {
           />
         </div>
 
-        <div className="create-question ">
+        <div className={cx('create-question')}>
           <ul>
             {listQuestion.map((e, i) => {
               return (
                 <li key={e}>
                   {e}
-                  <span className="delete-btn" onClick={() => handleDelete(i)}>
+                  <span
+                    className={cx('delete-btn')}
+                    onClick={() => handleDelete(i)}
+                  >
                     Xóa
                   </span>
                 </li>

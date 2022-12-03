@@ -4,3 +4,11 @@
 input {
   outline: none;
 }
+.show-error {
+  font-size: 12px;
+  height: 18px;
+  margin-top: -18px;
+  padding: 0 12px;
+  width: 100%;
+  color: #ff3636bd;
+}

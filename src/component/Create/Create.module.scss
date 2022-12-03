@@ -1,32 +1,46 @@
-.content .q-title input {
+.wrapper {
+  height: auto;
+  width: 800px;
+  margin: auto;
+  padding-top: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+.content {
+  height: max-content;
+  width: 500px;
+  padding: 4px;
+}
+
+.q-title input {
   outline: none;
   border: 1px solid pink;
   width: 50px;
   text-align: center;
 }
-.content .create-question {
+.create-question {
   position: relative;
   display: flex;
   justify-content: center;
 }
-.content .create-question p {
+.create-question p {
   font-size: 12px;
   color: red;
 }
-.content .create-question ul {
+.create-question ul {
   list-style: none;
   margin-right: 8px;
 }
-.content .create-question ul li {
+.create-question ul li {
   margin: 6px 0;
 }
-.content .create-question ul li .delete-btn {
+.create-question ul li .delete-btn {
   color: red;
   cursor: pointer;
   text-decoration: underline;
   margin-left: 8px;
 }
-.content .create-question input {
+.create-question input {
   width: 120px;
   height: 50%;
   color: blue;
@@ -34,7 +48,7 @@
   margin: 8px;
   padding: 4px;
 }
-.content .create-question button {
+.create-question button {
   position: relative;
   height: max-content;
   width: auto;
@@ -54,25 +68,15 @@
     width: unset;
     margin: 0;
   }
-  .content .q-title {
+  .q-title {
     font-size: 20px;
   }
-  .content .question div label {
+  .question div label {
     font-size: 14px;
   }
-  .content .question div input {
+  .question div input {
     width: 18px;
     height: 18px;
-  }
-  .user-infor {
-    padding: 2px;
-  }
-  .user-infor .stars {
-    padding-left: 8px;
-    font-size: 14px;
-  }
-  .user-infor .stars div p span {
-    margin-left: 1px;
   }
 }
 @media screen and (max-width: 500px) {
@@ -83,13 +87,7 @@
   .content {
     width: 100%;
   }
-  .content .q-title {
+  .q-title {
     font-size: 18px;
-  }
-  .user-infor {
-    border: none;
-    border-top: 2px solid lightgray;
-    width: 100%;
-    padding: 4px;
   }
 }
