@@ -4,10 +4,11 @@ import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-import { incDiem } from '../../api/diemApi';
+import { decDiem, incDiem } from '../../api/diemApi';
 import { getAllUserInfor } from '../../api/userApi';
 import { UserContext } from '../../index';
 import UserInforr from '../UserInfor/UserInfor';
+import Modal from '../Modal/Modal';
 import styles from './ClassRoom.module.scss';
 
 const cx = classNames.bind(styles);
@@ -17,6 +18,8 @@ const ClassRoom = () => {
   const navigation = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [typeModal, setTypeModal] = useState({ type: '', mssv: '' });
   const [error, setError] = useState('');
   const [dataUsers, setDataUsers] = useState([]);
 
@@ -37,10 +40,25 @@ const ClassRoom = () => {
     fetchData();
   }, []);
 
-  const handleIncStarForBaiTap = async (mssv) => {
+  const handleIncStar = async (mssv) => {
     setIsLoading(true);
-
+    setIsOpenModal(false);
     let res = await incDiem({ mssv: mssv }, UserInfor.accessToken);
+    if (res) {
+      reLoadData();
+    } else {
+      setIsLoading(false);
+      setTimeout(() => {
+        setError('');
+      }, 2000);
+      return setError('Đã có lỗi, hãy tải lại');
+    }
+  };
+
+  const handleDecStar = async (mssv) => {
+    setIsLoading(true);
+    setIsOpenModal(false);
+    let res = await decDiem({ mssv: mssv }, UserInfor.accessToken);
     if (res) {
       reLoadData();
     } else {
@@ -67,6 +85,10 @@ const ClassRoom = () => {
       }, 2000);
       return setError('Đã có lỗi, hãy tải lại');
     }
+  };
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
   };
 
   return (
@@ -101,7 +123,7 @@ const ClassRoom = () => {
             </tr>
             {dataUsers.map((element, index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{element.mssv}</td>
                   <td>
@@ -110,12 +132,21 @@ const ClassRoom = () => {
                   <td>{element.stars}</td>
                   <td>
                     <button
-                      onClick={() => handleIncStarForBaiTap(element.mssv)}
+                      onClick={() => {
+                        setTypeModal({ type: 'inc', mssv: element.mssv });
+                        setIsOpenModal(true);
+                      }}
                       className={cx('btn-inc-star')}
                     >
                       <FontAwesomeIcon icon={faPlus} />
                     </button>
-                    <button onClick={() => {}} className={cx('btn-dec-star')}>
+                    <button
+                      onClick={() => {
+                        setTypeModal({ type: 'dec', mssv: element.mssv });
+                        setIsOpenModal(true);
+                      }}
+                      className={cx('btn-dec-star')}
+                    >
                       <FontAwesomeIcon icon={faMinus} />
                     </button>
                   </td>
@@ -127,6 +158,34 @@ const ClassRoom = () => {
       </div>
 
       <UserInforr />
+
+      <Modal
+        isOpenModal={isOpenModal}
+        onRequestClose={handleCloseModal}
+        containerId="xac-nhan"
+      >
+        <div>
+          <h3>
+            Bạn có chắc muốn {typeModal.type === 'inc' ? 'cộng' : 'trừ'} điểm
+            không ?
+          </h3>
+          <button
+            className={cx('btn-inc-star')}
+            onClick={() => {
+              if (typeModal.type === 'inc') {
+                handleIncStar(typeModal.mssv);
+              } else {
+                handleDecStar(typeModal.mssv);
+              }
+            }}
+          >
+            Xác nhận
+          </button>
+          <button className={cx('btn-dec-star')} onClick={handleCloseModal}>
+            Hủy
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 };

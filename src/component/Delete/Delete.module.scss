@@ -1,0 +1,93 @@
+.wrapper {
+  height: auto;
+  width: 800px;
+  margin: auto;
+  padding-top: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+.content {
+  height: max-content;
+  width: 500px;
+  padding: 4px;
+}
+
+.q-title input {
+  outline: none;
+  border: 1px solid pink;
+  width: 50px;
+  text-align: center;
+}
+.create-question {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.create-question p {
+  font-size: 12px;
+  color: red;
+}
+.create-question ul {
+  list-style: none;
+  margin-right: 8px;
+}
+.create-question ul li {
+  margin: 6px 0;
+}
+.create-question ul li .delete-btn {
+  color: red;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 8px;
+}
+.create-question input {
+  width: 120px;
+  height: 50%;
+  color: blue;
+  position: relative;
+  margin: 8px;
+  padding: 4px;
+}
+.create-question button {
+  position: relative;
+  height: max-content;
+  width: auto;
+  padding: 8px;
+  margin: 8px;
+  font-weight: 600;
+  outline: none;
+  background-color: rgb(100, 100, 210);
+  border-radius: 4px;
+  border: none;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: all ease 0.854s;
+}
+@media screen and (max-width: 800px) {
+  .wrapper {
+    width: unset;
+    margin: 0;
+  }
+  .q-title {
+    font-size: 20px;
+  }
+  .question div label {
+    font-size: 14px;
+  }
+  .question div input {
+    width: 18px;
+    height: 18px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .wrapper {
+    flex-direction: column;
+    justify-content: start;
+  }
+  .content {
+    width: 100%;
+  }
+  .q-title {
+    font-size: 18px;
+  }
+}

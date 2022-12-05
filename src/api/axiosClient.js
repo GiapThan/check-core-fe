@@ -11,6 +11,7 @@ const axiosClient = axios.create({
       return queryString.stringify(params);
     },
   },
+  withCredentials: true,
 });
 
 axiosClient.interceptors.request.use(async (config) => {

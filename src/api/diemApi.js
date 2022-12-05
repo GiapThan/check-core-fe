@@ -1,14 +1,14 @@
-import axiosClient from "./axiosClient";
+import axiosClient from './axiosClient';
 
 const insertDiem = async (payload) => {
-  let res = await axiosClient.post("/diem/insert", payload);
+  let res = await axiosClient.post('/diem/insert', payload);
   if (res.errCode === 0) return true;
   return false;
 };
 
 const incDiem = async (payload = {}, accessToken) => {
   try {
-    let res = await axiosClient.put("/diem/inc", payload, {
+    let res = await axiosClient.put('/diem/inc', payload, {
       headers: { author: accessToken },
     });
     if (res && res.errCode === 0) return true;
@@ -17,4 +17,16 @@ const incDiem = async (payload = {}, accessToken) => {
     return false;
   }
 };
-export { insertDiem, incDiem };
+
+const decDiem = async (payload = {}, accessToken) => {
+  try {
+    let res = await axiosClient.put('/diem/dec', payload, {
+      headers: { author: accessToken },
+    });
+    if (res && res.errCode === 0) return true;
+    return false;
+  } catch (error) {
+    return false;
+  }
+};
+export { insertDiem, incDiem, decDiem };

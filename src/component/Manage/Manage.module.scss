@@ -49,9 +49,19 @@
   background-color: greenyellow;
   font-weight: 600;
   padding: 8px;
+  margin: 2px;
 }
 .btn-inc-star:active {
   opacity: 0.5;
+}
+.btn-cancel {
+  border: none;
+  cursor: pointer;
+  background-color: rgb(243, 96, 96);
+  font-weight: 600;
+  padding: 8px;
+  border-radius: 5px;
+  margin: 2px;
 }
 @media screen and (max-width: 800px) {
   .manage-wrapper {

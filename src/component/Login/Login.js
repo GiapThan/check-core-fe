@@ -1,8 +1,8 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
-import { UserLogin } from '../../api/userApi';
+import { refreshToken, UserLogin } from '../../api/userApi';
 import { UserContext } from '../../index';
 import styles from './Login.module.scss';
 
@@ -19,6 +19,20 @@ function Login() {
   const [isShowFormInputName, setIsShowFormInputName] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  /*   useEffect(() => {
+    const RefreshToken = async () => {
+      let data = await refreshToken();
+      if (data) {
+        UserInfor.accessToken = data.accessToken;
+        UserInfor.name = data.name;
+        UserInfor.mssv = data.mssv;
+        UserInfor.role = data.role;
+        navigation(-1);
+      }
+    };
+    RefreshToken();
+  }, []);
+ */
   const handleSubmitName = async () => {
     if (!name) {
       return setError('Chưa nhập họ và tên');

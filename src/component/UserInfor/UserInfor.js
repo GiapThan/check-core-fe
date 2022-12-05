@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotateRight } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 
-import { getUserInfor } from '../../api/userApi';
+import { getUserInfor, logOut } from '../../api/userApi';
 import { UserContext } from '../../index';
 import styles from './UserInfor.module.scss';
 
@@ -30,6 +30,13 @@ const UserInforr = () => {
     setIsLoading(false);
   };
 
+  const handleLogOut = async () => {
+    let res = await logOut(UserInfor.accessToken);
+    if (res) {
+      console.log('ok');
+    }
+  };
+
   return (
     <div className={cx('user-infor')}>
       <h4 style={{ color: 'red' }}>{UserInfor.name}</h4>
@@ -44,8 +51,22 @@ const UserInforr = () => {
           >
             Tạo form đăng ký
           </button>
-          <button className={cx('create-exam')}>Chỉnh sửa form</button>
-          <button className={cx('create-exam')}>Xóa form</button>
+          <button
+            onClick={() => {
+              navigation('/dstt/update');
+            }}
+            className={cx('create-exam')}
+          >
+            Chỉnh sửa form
+          </button>
+          <button
+            onClick={() => {
+              navigation('/dstt/delete');
+            }}
+            className={cx('create-exam')}
+          >
+            Xóa form
+          </button>
           <button
             onClick={() => {
               navigation('/dstt/class');
@@ -56,6 +77,9 @@ const UserInforr = () => {
           </button>
         </>
       )}
+      {/*     <button onClick={handleLogOut} className={cx('create-exam')}>
+        Đăng xuất
+      </button> */}
       <div className={cx('stars')}>
         <span>Số sao đã có:</span>
         <button

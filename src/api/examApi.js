@@ -90,6 +90,32 @@ const reLoadDataManage = async (payload, accessToken) => {
     return false;
   }
 };
+
+const getAllForm = async (accessToken) => {
+  try {
+    let res = await axiosClient.get('exam/all', {
+      headers: { author: accessToken },
+    });
+    console.log(res.data);
+    if (res && res.errCode === 0) return res.data;
+    return false;
+  } catch (error) {
+    return false;
+  }
+};
+
+const deleteForm = async (payload, accessToken) => {
+  try {
+    let res = await axiosClient.delete(
+      `exam/delete/${payload.chuong}/${payload.lesson}`,
+      { headers: { author: accessToken } },
+    );
+    console.log(res);
+  } catch (error) {
+    return false;
+  }
+};
+
 export {
   getBaiTap,
   createBaiTap,
@@ -97,4 +123,6 @@ export {
   changeOpen,
   getBaiTapManage,
   reLoadDataManage,
+  getAllForm,
+  deleteForm,
 };

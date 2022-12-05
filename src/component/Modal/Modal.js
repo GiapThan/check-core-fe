@@ -5,7 +5,6 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Portal from '../Portal/Portal';
 import styles from './Modal.module.scss';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 const cx = classNames.bind(styles);
 const Modal = ({
@@ -15,8 +14,6 @@ const Modal = ({
   onRequestClose,
   containerId,
 }) => {
-  const system = useSelector((state) => state.system);
-
   const [closing, setClosing] = useState(false);
   const containerRef = useRef();
 
@@ -46,11 +43,6 @@ const Modal = ({
     return () => document.removeEventListener('keydown', handle);
   }, [isOpenModal, handleCloseModal]);
 
-  useEffect(() => {
-    if (system.isCloseModal) {
-      handleCloseModal();
-    }
-  }, [system.isCloseModal]);
   if (!isOpenModal) {
     return null;
   }
