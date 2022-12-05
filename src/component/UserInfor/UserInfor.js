@@ -52,17 +52,17 @@ const UserInforr = () => {
             Tạo form đăng ký
           </button>
           <button
-            onClick={() => {
+            /*  onClick={() => {
               navigation('/dstt/update');
-            }}
+            }} */
             className={cx('create-exam')}
           >
             Chỉnh sửa form
           </button>
           <button
-            onClick={() => {
+            /*  onClick={() => {
               navigation('/dstt/delete');
-            }}
+            }} */
             className={cx('create-exam')}
           >
             Xóa form
